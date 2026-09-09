@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>CabDevX | Camilo Caballero · Junior Dev Portfolio</title>
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/react@18.2.0/umd/react.development.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/react-dom@18.2.0/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&display=swap');
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      background-color: #050505;
+      font-family: 'Inter', system-ui, sans-serif;
+      overflow-x: hidden;
+    }
+    .glass-card {
+      background: rgba(15, 15, 15, 0.65);
+      backdrop-filter: blur(14px);
+      border: 1px solid rgba(239, 68, 68, 0.25);
+      border-radius: 2rem;
+      transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    }
+    .glass-card:hover {
+      border-color: #ef4444;
+      box-shadow: 0 25px 40px -12px rgba(239, 68, 68, 0.25);
+      transform: translateY(-6px);
+    }
+    .nav-link {
+      position: relative;
+      transition: color 0.2s;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      left: 0;
+      width: 0%;
+      height: 2px;
+      background: #ef4444;
+      transition: width 0.35s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+      border-radius: 4px;
+    }
+    .nav-link:hover::after, .nav-link.active::after { width: 100%; }
+    .profile-img {
+      animation: floatGlow 4s ease-in-out infinite;
+    }
+    @keyframes floatGlow {
+      0% { transform: translateY(0px) rotate(0deg); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.3); }
+      50% { transform: translateY(-12px) rotate(2deg); box-shadow: 0 20px 35px -8px rgba(239, 68, 68, 0.6); }
+      100% { transform: translateY(0px) rotate(0deg); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.2); }
+    }
+    .typed-cursor {
+      display: inline-block;
+      width: 3px;
+      background-color: #ef4444;
+      margin-left: 4px;
+      animation: blink 0.8s infinite;
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+    .skill-icon {
+      transition: all 0.3s ease;
+    }
+    .skill-icon:hover {
+      transform: translateY(-8px) scale(1.12);
+      filter: drop-shadow(0 10px 15px rgba(239,68,68,0.4));
+    }
+    .project-btn {
+      background: linear-gradient(95deg, #111111, #000000);
+      border: 1px solid #2c2c2c;
+      transition: all 0.25s;
+    }
+    .project-btn:hover {
+      background: linear-gradient(95deg, #ef4444, #b91c1c);
+      border-color: #ef4444;
+      box-shadow: 0 8px 20px rgba(239,68,68,0.45);
+    }
+    .project-img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      object-position: center;
+      transition: transform 0.5s ease;
+    }
+    .group:hover .project-img {
+      transform: scale(1.05);
+    }
+    input, textarea {
+      background: #0c0c0c;
+      border: 1px solid #2a2a2a;
+      transition: 0.2s;
+    }
+    input:focus, textarea:focus {
+      border-color: #ef4444;
+      box-shadow: 0 0 0 3px rgba(239,68,68,0.2);
+      outline: none;
+    }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #0a0a0a; }
+    ::-webkit-scrollbar-thumb { background: #ef4444; border-radius: 12px; }
+    .bg-grain {
+      background-image: radial-gradient(rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 32px 32px;
+    }
+    .cv-buttons {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      margin-top: 20px;
+    }
+    .cv-btn {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 16px;
+      border-radius: 12px;
+      font-weight: 600;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+    .cv-view {
+      background: rgba(59, 130, 246, 0.2);
+      border: 1px solid rgba(59, 130, 246, 0.5);
+      color: #60a5fa;
+    }
+    .cv-view:hover {
+      background: rgba(59, 130, 246, 0.4);
+      transform: translateY(-2px);
+    }
+    .cv-download {
+      background: linear-gradient(95deg, #ef4444, #b91c1c);
+      border: none;
+      color: white;
+    }
+    .cv-download:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(239,68,68,0.45);
+    }
+  </style>
+</head>
+<body class="text-gray-200 bg-grain">
+<div id="root"></div>
+
+<script type="text/babel">
+  const { useState, useEffect } = React;
+  const LanguageContext = React.createContext({ language: 'es', setLanguage: () => {} });
+
+  // ---- PROYECTOS CON IMÁGENES LOCALES ----
+  const proyectosData = {
+    es: [
+      { 
+        id:1, 
+        titulo:"Cinema Ticket System", 
+        descripcion:"Aplicación web para la compra de boletos de cine, donde los usuarios pueden explorar la cartelera, seleccionar funciones y gestionar sus tickets de forma rápida e intuitiva.", 
+        imagen:"./images/cine (1).png", 
+        url:"https://cine-psi-lilac.vercel.app/", 
+        tags:["React 18 + Vite","Node.js + Express","PostgreSQL","JWT + Bcrypt"] 
+      },
+      { 
+        id:2, 
+        titulo:"Sistematización de Parqueaderos", 
+        descripcion:"Sistema web de gestión de parqueaderos que permite consultar disponibilidad, reservar espacios y optimizar el uso de cupos en tiempo real.", 
+        imagen:"./images/smartpark.png", 
+        url:"https://smartpark-one.vercel.app/", 
+        tags:["TypeScript","JavaScript","HTML5","CSS3","PostgreSQL"] 
+      },
+      { 
+        id:3, 
+        titulo:"Manjares del Campo", 
+        descripcion:"Tienda online de productos tradicionales que facilita la exploración de catálogo y la realización de pedidos de manera sencilla y accesible.", 
+        imagen:"./images/e-commerce.png", 
+        url:"https://manjares-del-campo.vercel.app/", 
+        tags:["HTML5","CSS","JavaScript","PostgreSQL"] 
+      },
+      { 
+        id:4, 
+        titulo:"Sistema POS", 
+        descripcion:"Sistema de punto de venta enfocado en el control de ventas a crédito (fiado), con roles de administrador y trabajador para una gestión organizada de clientes, productos y deudas.", 
+        imagen:"./images/toreto.png", 
+        url:"https://toretos.vercel.app/dashboard", 
+        tags:["React","Next.js","TypeScript","PostgreSQL"] 
+      },
+      { 
+        id:5, 
+        titulo:"Sistema de Gestión Automotriz Integral", 
+        descripcion:"Sistema de gestión automotriz integral enfocado en el control de servicios mecánicos y agendamiento de citas, con roles de administrador para una gestión organizada de clientes, vehículos, historial de reparaciones y deudas asociadas a servicios.", 
+        imagen:"./images/tecnicentro.png", 
+        url:"https://tecnicentro-los-carros.vercel.app/", 
+        tags:["Next.js","React","TypeScript","PostgreSQL","Prisma","Tailwind CSS","Brevo API","Responsive Design"] 
+      },
+      { 
+        id:6, 
+        titulo:"HealthAnalytics IPS", 
+        descripcion:"HealthAnalytics IPS es una plataforma web para el sector salud que permite cargar datos clínicos (CSV/Excel), procesarlos mediante un pipeline ETL inteligente, visualizar KPIs y tendencias en un dashboard interactivo, y predecir riesgo cardiovascular con modelos de Machine Learning.", 
+        imagen:"./images/Health.png", 
+        url:"https://health-analytics-mlfw.vercel.app/", 
+        tags:["Python","Machine Learning","ETL","React","Django","PostgreSQL","Scikit-learn","Pandas","FastAPI"] 
+      }
+    ],
+    en: [
+      { 
+        id:1, 
+        titulo:"Cinema Ticket System", 
+        descripcion:"Web application for buying movie tickets, where users can explore the movie schedule, select showtimes and manage their tickets quickly and intuitively.", 
+        imagen:"./images/cine (1).png", 
+        url:"https://cine-psi-lilac.vercel.app/", 
+        tags:["React 18 + Vite","Node.js + Express","PostgreSQL","JWT + Bcrypt"] 
+      },
+      { 
+        id:2, 
+        titulo:"Parking Management System", 
+        descripcion:"Web-based parking management system that allows checking availability, reserving spaces and optimizing the use of spots in real time.", 
+        imagen:"./images/smartpark.png", 
+        url:"https://smartpark-one.vercel.app/", 
+        tags:["TypeScript","JavaScript","HTML5","CSS3","PostgreSQL"] 
+      },
+      { 
+        id:3, 
+        titulo:"Manjares del Campo", 
+        descripcion:"Online store of traditional products that facilitates catalog exploration and ordering in a simple and accessible way.", 
+        imagen:"./images/e-commerce.png", 
+        url:"https://manjares-del-campo.vercel.app/", 
+        tags:["HTML5","CSS","JavaScript","PostgreSQL"] 
+      },
+      { 
+        id:4, 
+        titulo:"Credit Management System", 
+        descripcion:"Point of sale system focused on credit sales control, with admin and worker roles for organized management of customers, products and debts.", 
+        imagen:"./images/toretto.png", 
+        url:"https://toretos.vercel.app/dashboard", 
+        tags:["React","Next.js","TypeScript","PostgreSQL"] 
+      },
+      { 
+        id:5, 
+        titulo:"Automotive Management System", 
+        descripcion:"Comprehensive automotive management system focused on mechanical services control and appointment scheduling, with admin roles for organized management of customers, vehicles, repair history and service debts.", 
+        imagen:"./images/tecnicentro.png", 
+        url:"https://tecnicentro-los-carros.vercel.app/", 
+        tags:["Next.js","React","TypeScript","PostgreSQL","Prisma","Tailwind CSS","Brevo API","Responsive Design"] 
+      },
+      { 
+        id:6, 
+        titulo:"HealthAnalytics IPS", 
+        descripcion:"HealthAnalytics IPS is a web platform for the healthcare sector that allows loading clinical data (CSV/Excel), processing it through an intelligent ETL pipeline, visualizing KPIs and trends in an interactive dashboard, and predicting cardiovascular risk with Machine Learning models.", 
+        imagen:"./images/Health.png", 
+        url:"https://health-analytics-mlfw.vercel.app/", 
+        tags:["Python","Machine Learning","ETL","React","Django","PostgreSQL","Scikit-learn","Pandas","FastAPI"] 
+      }
+    ]
+  };
+
+  // Habilidades técnicas (ACTUALIZADO CON KOTLIN Y ANDROID STUDIO)
+  const coreSkills = [
+    { name:"HTML5", icon:"fab fa-html5", color:"#E34F26" },
+    { name:"CSS3", icon:"fab fa-css3-alt", color:"#1572B6" },
+    { name:"Tailwind CSS", icon:"fab fa-css3-alt", color:"#06B6D4" },
+    { name:"JavaScript", icon:"fab fa-js", color:"#F7DF1E" },
+    { name:"TypeScript", icon:"fab fa-js", color:"#3178C6" },
+    { name:"React", icon:"fab fa-react", color:"#61DAFB" },
+    { name:"Next.js", icon:"fab fa-react", color:"#000000" },
+    { name:"Node.js", icon:"fab fa-node-js", color:"#339933" },
+    { name:"Express", icon:"fab fa-node-js", color:"#000000" },
+    { name:"Python", icon:"fab fa-python", color:"#3776AB" },
+    { name:"Django", icon:"fab fa-python", color:"#092E20" },
+    { name:"FastAPI", icon:"fas fa-bolt", color:"#009688" },
+    { name:"Machine Learning", icon:"fas fa-brain", color:"#6C63FF" },
+    { name:"Scikit-learn", icon:"fas fa-robot", color:"#F7931E" },
+    { name:"Pandas", icon:"fas fa-table", color:"#150458" },
+    { name:"Java", icon:"fab fa-java", color:"#F89820" },
+    { name:"Kotlin", icon:"fab fa-android", color:"#7F52FF" },
+    { name:"Android Studio", icon:"fab fa-android", color:"#3DDC84" },
+    { name:"PHP", icon:"fab fa-php", color:"#777BB4" },
+    { name:"Laravel", icon:"fab fa-laravel", color:"#FF2D20" },
+    { name:"PostgreSQL", icon:"fas fa-database", color:"#4169E1" },
+    { name:"MySQL", icon:"fas fa-database", color:"#4479A1" },
+    { name:"Prisma", icon:"fas fa-database", color:"#2D3748" },
+    { name:"MySQL Workbench", icon:"fas fa-tools", color:"#E58C2E" },
+    { name:"Vercel", icon:"fas fa-cloud-upload-alt", color:"#FFFFFF" },
+    { name:"GitHub", icon:"fab fa-github", color:"#ffffff" },
+    { name:"VS Code", icon:"fas fa-code", color:"#007ACC" },
+    { name:"JWT", icon:"fas fa-key", color:"#FF2D20" },
+    { name:"Bcrypt", icon:"fas fa-lock", color:"#00A8E8" },
+    { name:"Brevo API", icon:"fas fa-envelope", color:"#0B996E" }
+  ];
+
+  // URLs de las hojas de vida
+  const cvUrls = {
+    es: {
+      view: "https://drive.google.com/file/d/16SWjfvKybZ9d8zkbDud1PlosfZjgpqUv/preview",
+      download: "https://drive.google.com/uc?export=download&id=16SWjfvKybZ9d8zkbDud1PlosfZjgpqUv"
+    },
+    en: {
+      view: "https://drive.google.com/file/d/1iDqWtMh4Xt_LMKTmy8v99mCAX_yD-tGB/preview",
+      download: "https://drive.google.com/uc?export=download&id=1iDqWtMh4Xt_LMKTmy8v99mCAX_yD-tGB"
+    }
+  };
+
+  // Textos bilingües (ACTUALIZADO)
+  const translations = {
+    es: {
+      nav: { home: "Inicio", about: "Sobre mí", projects: "Proyectos", services: "Servicios", contact: "Contacto" },
+      hero: { badge: "✦ Junior Software Developer ✦", description: "Desarrollador junior con mentalidad de creador. Apasionado por el rendimiento, las animaciones fluidas y construir experiencias digitales que marcan diferencia. Desarrollo web y móvil con Kotlin.", contactBtn: "Contactar", projectsBtn: "Proyectos", roles: ["Junior Dev", "CabDevX", "Creador UI/UX", "FullStack en formación", "Mobile Developer (Kotlin)", "Innovador Digital"], tagline: "código con alma" },
+      about: { title: "Sobre mí", description1: "✨ Hola, soy <strong class='text-red-400'>Camilo Caballero</strong>, fundador de <strong class='text-red-500'>CabDevX</strong>. Construyo aplicaciones web y móviles donde la estética y la funcionalidad se fusionan. Uso <strong>React, Next.js, Node.js, Python, Kotlin y bases de datos SQL</strong> para crear soluciones modernas y escalables.", description2: "Mi flujo de trabajo incluye <strong class='text-red-300'>VS Code, Android Studio, GitHub</strong> y despliegues en <strong class='text-red-300'>Vercel</strong>, además de diseñar modelos en <strong class='text-red-300'>MySQL Workbench</strong> y <strong class='text-red-300'>Prisma</strong>. También implemento soluciones con <strong class='text-red-300'>Machine Learning</strong> y <strong class='text-red-300'>ETL</strong>. Siempre aprendiendo y aportando valor a equipos ágiles.", qualities: ["Metodologías ágiles", "Clean Code", "UI/UX centrado", "Rendimiento Web", "Git Flow", "Aprendizaje continuo", "Desarrollo Multiplataforma"], techTitle: "Tech Stack & Tools", databases: "Bases de datos: PostgreSQL, MySQL, Firebase", versionControl: "Control de versiones" },
+      projects: { title: "Proyectos destacados", subtitle: "Innovación y código limpio en cada línea", viewBtn: "Ver proyecto" },
+      services: { title: "Servicios", subtitle: "Soluciones a medida para negocios digitales", items: [
+        { icon:"fas fa-laptop-code", title:"Frontend avanzado", desc:"React, Next.js, Tailwind, animaciones, arquitectura componentizada, responsive design." },
+        { icon:"fas fa-server", title:"Backend & APIs", desc:"Node.js, Express, Laravel, FastAPI, Django, autenticación JWT + Bcrypt, integración con Brevo API." },
+        { icon:"fas fa-database", title:"Modelado de Datos", desc:"MySQL Workbench, PostgreSQL, Prisma ORM, consultas optimizadas, pipelines ETL." },
+        { icon:"fas fa-brain", title:"Machine Learning", desc:"Scikit-learn, Pandas, predicción de riesgos, análisis de datos clínicos y dashboards interactivos." },
+        { icon:"fab fa-android", title:"Desarrollo Móvil", desc:"Kotlin, Android Studio, Jetpack Compose, arquitectura MVVM, integración con APIs REST." },
+        { icon:"fab fa-github", title:"Despliegue Continuo", desc:"GitHub + Vercel, integración continua y entornos." }
+      ]},
+      contact: { title: "Conecta con", formTitle: "Escríbeme", namePlaceholder: "Nombre completo", emailPlaceholder: "Correo electrónico", messagePlaceholder: "Cuéntame tu idea...", sendButton: "Enviar mensaje", successMessage: "✅ ¡Mensaje enviado con éxito! Te responderé pronto.", errorMessage: "❌ Hubo un error. Por favor intenta de nuevo.", directChannels: "Canales directos", viewCV: "Ver CV", downloadCV: "Descargar CV" },
+      footer: "© 2025 Camilo Caballero | CabDevX. Todos los derechos reservados."
+    },
+    en: {
+      nav: { home: "Home", about: "About", projects: "Projects", services: "Services", contact: "Contact" },
+      hero: { badge: "✦ Junior Software Developer ✦", description: "Junior developer with a creator mindset. Passionate about performance, smooth animations and building digital experiences that make a difference. Web and mobile development with Kotlin.", contactBtn: "Contact me", projectsBtn: "Projects", roles: ["Junior Dev", "CabDevX", "UI/UX Creator", "FullStack in training", "Mobile Developer (Kotlin)", "Digital Innovator"], tagline: "code with soul" },
+      about: { title: "About me", description1: "✨ Hi, I'm <strong class='text-red-400'>Camilo Caballero</strong>, founder of <strong class='text-red-500'>CabDevX</strong>. I build web and mobile applications where aesthetics and functionality merge. I use <strong>React, Next.js, Node.js, Python, Kotlin and SQL databases</strong> to create modern and scalable solutions.", description2: "My workflow includes <strong class='text-red-300'>VS Code, Android Studio, GitHub</strong> and deployments on <strong class='text-red-300'>Vercel</strong>, as well as designing models in <strong class='text-red-300'>MySQL Workbench</strong> and <strong class='text-red-300'>Prisma</strong>. I also implement <strong class='text-red-300'>Machine Learning</strong> and <strong class='text-red-300'>ETL</strong> solutions. Always learning and adding value to agile teams.", qualities: ["Agile methodologies", "Clean Code", "UI/UX focused", "Web Performance", "Git Flow", "Continuous learning", "Cross-platform Development"], techTitle: "Tech Stack & Tools", databases: "Databases: PostgreSQL, MySQL, Firebase", versionControl: "Version control" },
+      projects: { title: "Featured projects", subtitle: "Innovation and clean code in every line", viewBtn: "View project" },
+      services: { title: "Services", subtitle: "Tailored solutions for digital businesses", items: [
+        { icon:"fas fa-laptop-code", title:"Advanced Frontend", desc:"React, Next.js, Tailwind, animations, component-based architecture, responsive design." },
+        { icon:"fas fa-server", title:"Backend & APIs", desc:"Node.js, Express, Laravel, FastAPI, Django, JWT + Bcrypt authentication, Brevo API integration." },
+        { icon:"fas fa-database", title:"Data Modeling", desc:"MySQL Workbench, PostgreSQL, Prisma ORM, optimized queries, ETL pipelines." },
+        { icon:"fas fa-brain", title:"Machine Learning", desc:"Scikit-learn, Pandas, risk prediction, clinical data analysis and interactive dashboards." },
+        { icon:"fab fa-android", title:"Mobile Development", desc:"Kotlin, Android Studio, Jetpack Compose, MVVM architecture, REST API integration." },
+        { icon:"fab fa-github", title:"Continuous Deployment", desc:"GitHub + Vercel, continuous integration and environments." }
+      ]},
+      contact: { title: "Connect with", formTitle: "Write me", namePlaceholder: "Full name", emailPlaceholder: "Email address", messagePlaceholder: "Tell me your idea...", sendButton: "Send message", successMessage: "✅ Message sent successfully! I will reply soon.", errorMessage: "❌ An error occurred. Please try again.", directChannels: "Direct channels", viewCV: "View CV", downloadCV: "Download CV" },
+      footer: "© 2025 Camilo Caballero | CabDevX. All rights reserved."
+    }
+  };
+
+  // COMPONENTES
+  const Navigation = ({ activeSection, setActiveSection, language, setLanguage }) => {
+    const sections = { es: ["inicio","sobre-mi","proyectos","servicios","contacto"], en: ["home","about","projects","services","contact"] };
+    const navLabels = translations[language].nav;
+    const sectionIds = sections[language];
+    const labelMap = { 
+      es: { "inicio": navLabels.home, "sobre-mi": navLabels.about, "proyectos": navLabels.projects, "servicios": navLabels.services, "contacto": navLabels.contact },
+      en: { "home": navLabels.home, "about": navLabels.about, "projects": navLabels.projects, "services": navLabels.services, "contact": navLabels.contact }
+    };
+    const scrollTo = (id) => { setActiveSection(id); document.getElementById(id)?.scrollIntoView({ behavior:"smooth", block:"start" }); };
+    return (
+      <nav className="fixed top-0 left-0 w-full z-50 py-4 px-6 md:px-12 backdrop-blur-2xl bg-black/70 border-b border-red-700/40 shadow-2xl">
+        <div className="max-w-7xl mx-auto flex flex-wrap justify-between items-center">
+          <div className="text-2xl font-black tracking-tighter group"><span className="text-white">Cab</span><span className="text-red-500 group-hover:animate-pulse">Dev</span><span className="text-white">X</span><span className="text-[11px] ml-2 font-mono text-gray-400 border-l border-red-500 pl-2">// dynamic dev</span></div>
+          <div className="flex flex-wrap items-center gap-5 md:gap-8">
+            <div className="flex gap-2 bg-gray-900/50 rounded-full p-1">
+              <button onClick={() => setLanguage('es')} className={`px-3 py-1 rounded-full text-sm transition-all ${language === 'es' ? 'bg-red-600 text-white' : 'text-gray-400 hover:text-white'}`}>ES</button>
+              <button onClick={() => setLanguage('en')} className={`px-3 py-1 rounded-full text-sm transition-all ${language === 'en' ? 'bg-red-600 text-white' : 'text-gray-400 hover:text-white'}`}>EN</button>
+            </div>
+            <div className="flex flex-wrap gap-5 md:gap-8 text-sm font-medium">
+              {sectionIds.map(sec => <button key={sec} onClick={() => scrollTo(sec)} className={`nav-link capitalize ${activeSection===sec ? 'text-red-500 active' : 'text-gray-300 hover:text-red-400'}`}>{labelMap[language][sec]}</button>)}
+            </div>
+          </div>
+        </div>
+      </nav>
+    );
+  };
+
+  const Typewriter = ({ texts, delay = 120, loopDelay = 2000 }) => {
+    const [displayText, setDisplayText] = useState("");
+    const [index, setIndex] = useState(0);
+    const [charIndex, setCharIndex] = useState(0);
+    const [isDeleting, setIsDeleting] = useState(false);
+    useEffect(() => {
+      const timeout = setTimeout(() => {
+        const current = texts[index];
+        if (!isDeleting && charIndex <= current.length) {
+          setDisplayText(current.slice(0, charIndex + 1));
+          setCharIndex(charIndex + 1);
+          if (charIndex === current.length) setTimeout(() => setIsDeleting(true), loopDelay);
+        } else if (isDeleting && charIndex > 0) {
+          setDisplayText(current.slice(0, charIndex - 1));
+          setCharIndex(charIndex - 1);
+        } else if (isDeleting && charIndex === 0) {
+          setIsDeleting(false);
+          setIndex((prev) => (prev + 1) % texts.length);
+        }
+      }, isDeleting ? 50 : delay);
+      return () => clearTimeout(timeout);
+    }, [charIndex, isDeleting, index, texts, delay, loopDelay]);
+    return <span>{displayText}<span className="typed-cursor"> </span></span>;
+  };
+
+  const Hero = () => {
+    const { language } = React.useContext(LanguageContext);
+    const t = translations[language].hero;
+    return (
+      <section id={language === 'es' ? "inicio" : "home"} className="min-h-screen flex items-center justify-center relative overflow-hidden px-6 pt-28 pb-20">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-red-950/20 via-black to-black pointer-events-none"></div>
+        <div className="max-w-7xl mx-auto flex flex-col-reverse lg:flex-row items-center gap-14 z-10">
+          <div className="flex-1 text-center lg:text-left">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-red-950/40 border border-red-500/40 text-red-300 text-xs font-mono backdrop-blur-sm mb-5"><span className="relative flex h-2 w-2"><span className="animate-ping absolute h-2 w-2 rounded-full bg-red-500"></span><span className="relative rounded-full h-2 w-2 bg-red-500"></span></span>{t.badge}</div>
+            <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight"><span className="text-white">Camilo </span><span className="bg-gradient-to-r from-red-500 to-red-700 bg-clip-text text-transparent">Caballero</span></h1>
+            <div className="text-2xl md:text-3xl font-medium mt-4 flex flex-wrap gap-2 items-center justify-center lg:justify-start"><span className="text-gray-300">🚀</span><Typewriter texts={t.roles} delay={100} loopDelay={1800} /></div>
+            <p className="text-gray-400 max-w-xl mt-6 text-lg leading-relaxed">{t.description}<span className="block text-sm text-red-400/80 mt-2">#CabDevX — {t.tagline}</span></p>
+            <div className="flex flex-wrap gap-5 mt-9 justify-center lg:justify-start"><a href={`#${language === 'es' ? 'contacto' : 'contact'}`} className="px-8 py-3.5 rounded-full bg-red-600 hover:bg-red-700 transition-all shadow-xl shadow-red-900/50 font-semibold text-sm tracking-wide flex items-center gap-2"><i className="fas fa-paper-plane"></i> {t.contactBtn}</a><a href={`#${language === 'es' ? 'proyectos' : 'projects'}`} className="px-8 py-3.5 rounded-full border border-gray-600 hover:border-red-500 hover:bg-red-500/10 transition-all flex items-center gap-2"><i className="fas fa-rocket"></i> {t.projectsBtn}</a></div>
+          </div>
+          <div className="flex-1 flex justify-center"><div className="relative w-72 h-72 md:w-88 md:h-88 lg:w-96 lg:h-96 rounded-full bg-gradient-to-br from-red-700 via-black to-red-900 p-1.5 shadow-2xl shadow-red-600/30 profile-img"><div className="w-full h-full rounded-full overflow-hidden border-4 border-black/80 bg-gradient-to-b from-gray-900 to-black flex items-center justify-center"><img src="https://i.imgur.com/kzKr9K8.jpeg" alt="Camilo Caballero" className="w-full h-full object-cover scale-105 transition-all duration-500 hover:scale-110" onError={(e) => { e.target.src = 'https://via.placeholder.com/400x400/1a1a2e/ef4444?text=CabDevX'; }}/></div><div className="absolute -bottom-3 -right-3 bg-red-600 w-10 h-10 rounded-full border-2 border-black flex items-center justify-center text-white shadow-md animate-pulse"><i className="fas fa-code text-sm"></i></div></div></div>
+        </div>
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce opacity-60"><i className="fas fa-angle-double-down text-2xl text-red-400"></i></div>
+      </section>
+    );
+  };
+
+  const About = () => {
+    const { language } = React.useContext(LanguageContext);
+    const t = translations[language].about;
+    return (
+      <section id={language === 'es' ? "sobre-mi" : "about"} className="py-24 px-6 bg-gradient-to-b from-black via-gray-950 to-black">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-14"><h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-gray-200 to-red-400 bg-clip-text text-transparent">{t.title}</h2><div className="w-24 h-1 bg-red-600 mx-auto mt-3 rounded-full"></div></div>
+          <div className="flex flex-col lg:flex-row gap-12">
+            <div className="flex-1 space-y-5"><p className="text-gray-300 text-lg leading-relaxed" dangerouslySetInnerHTML={{ __html: t.description1 }}></p><p className="text-gray-400" dangerouslySetInnerHTML={{ __html: t.description2 }}></p><div className="grid grid-cols-2 gap-3 pt-3">{t.qualities.map((item,i)=> <div key={i} className="flex items-center gap-2 text-sm"><i className="fas fa-bolt text-red-500 text-xs"></i><span>{item}</span></div>)}</div></div>
+            <div className="flex-1 glass-card p-6 md:p-8"><h3 className="text-2xl font-bold mb-5 flex gap-2"><i className="fab fa-react text-red-400"></i> {t.techTitle}</h3><div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-5">{coreSkills.map((skill,idx) => <div key={idx} className="skill-icon flex flex-col items-center gap-1.5 group cursor-default"><i className={`${skill.icon} text-3xl md:text-4xl`} style={{ color: skill.color, textShadow: "0 0 6px rgba(0,0,0,0.5)" }}></i><span className="text-[11px] font-mono text-gray-400 text-center">{skill.name}</span></div>)}</div><div className="mt-6 text-xs text-gray-500 border-t border-gray-800 pt-4 flex justify-between"><span><i className="fas fa-database text-red-400"></i> {t.databases}</span><span><i className="fab fa-github"></i> {t.versionControl}</span></div></div>
+          </div>
+        </div>
+      </section>
+    );
+  };
+
+  const Projects = () => {
+    const { language } = React.useContext(LanguageContext);
+    const projects = proyectosData[language];
+    const t = translations[language].projects;
+    return (
+      <section id={language === 'es' ? "proyectos" : "projects"} className="py-24 px-6 bg-black">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-14">
+            <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-red-400 to-white bg-clip-text text-transparent">{t.title}</h2>
+            <p className="text-gray-400 mt-3">{t.subtitle}</p>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {projects.map(proj => (
+              <div key={proj.id} className="glass-card overflow-hidden group flex flex-col h-full rounded-2xl transition-all duration-500">
+                <div className="h-48 overflow-hidden relative bg-gray-900">
+                  <img src={proj.imagen} alt={proj.titulo} className="project-img" loading="lazy" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition"></div>
+                </div>
+                <div className="p-5 flex-1 flex flex-col">
+                  <h3 className="text-xl font-bold tracking-tight">{proj.titulo}</h3>
+                  <div className="flex flex-wrap gap-1.5 my-2">
+                    {proj.tags.slice(0, 4).map(tag => <span key={tag} className="text-[8px] uppercase bg-red-950/40 px-1.5 py-0.5 rounded-full text-red-300">{tag}</span>)}
+                    {proj.tags.length > 4 && <span className="text-[8px] uppercase bg-gray-800 px-1.5 py-0.5 rounded-full text-gray-400">+{proj.tags.length - 4}</span>}
+                  </div>
+                  <p className="text-gray-400 text-xs my-2 flex-1 line-clamp-3">{proj.descripcion}</p>
+                  <a href={proj.url} target="_blank" rel="noopener noreferrer" className="project-btn mt-2 flex items-center justify-center gap-2 py-2 rounded-xl text-white font-medium text-sm transition-all">
+                    <i className="fas fa-external-link-alt"></i> {t.viewBtn}
+                  </a>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    );
+  };
+
+  const Services = () => {
+    const { language } = React.useContext(LanguageContext);
+    const t = translations[language].services;
+    return (
+      <section id="servicios" className="py-24 px-6 bg-gradient-to-b from-gray-950 to-black">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-14">
+            <h2 className="text-4xl md:text-5xl font-bold text-white">{t.title} <span className="text-red-500">Premium</span></h2>
+            <p className="text-gray-400">{t.subtitle}</p>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {t.items.map((s,i)=> (
+              <div key={i} className="text-center p-7 rounded-2xl bg-gray-900/30 border border-gray-800 hover:border-red-500/60 transition-all duration-300 hover:shadow-2xl hover:shadow-red-500/10 backdrop-blur-sm">
+                <i className={`${s.icon} text-4xl text-red-500 mb-4`}></i>
+                <h3 className="text-xl font-bold mb-2">{s.title}</h3>
+                <p className="text-gray-400 text-sm">{s.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    );
+  };
+
+  const Contact = () => {
+    const { language } = React.useContext(LanguageContext);
+    const t = translations[language].contact;
+    const cv = cvUrls[language];
+    
+    const contactItems = [
+      { name:"WhatsApp", icon:"fab fa-whatsapp", url:"https://wa.me/573238849203", color:"bg-green-700" },
+      { name:"GitHub", icon:"fab fa-github", url:"https://github.com/Camilo-JC", color:"bg-gray-800" },
+      { name:"LinkedIn", icon:"fab fa-linkedin-in", url:"https://www.linkedin.com/in/camilo-caballero-061252407", color:"bg-blue-800" },
+      { name:"Email", icon:"fas fa-envelope", url:"mailto:camilojc1725@gmail.com", color:"bg-red-700" },
+    ];
+    
+    const handleViewCV = () => { window.open(cv.view, "_blank"); };
+    const handleDownloadCV = () => { window.open(cv.download, "_blank"); };
+    
+    useEffect(() => {
+      const script = document.createElement('script');
+      script.src = "https://unpkg.com/@formspree/ajax@1";
+      script.defer = true;
+      script.onload = () => { if (window.formspree) { window.formspree('initForm', { formElement: '#fs-form', formId: 'xeenapwr' }); } };
+      document.body.appendChild(script);
+      return () => { if (document.body.contains(script)) document.body.removeChild(script); };
+    }, []);
+    
+    return (
+      <section id={language === 'es' ? "contacto" : "contact"} className="py-24 px-6 bg-black relative">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-14">
+            <h2 className="text-4xl md:text-5xl font-bold">{t.title} <span className="text-red-500">CabDevX</span></h2>
+            <div className="w-24 h-1 bg-red-600 mx-auto mt-3 rounded-full"></div>
+          </div>
+          <div className="grid md:grid-cols-2 gap-12">
+            <div className="glass-card p-8">
+              <h3 className="text-2xl font-semibold mb-5"><i className="fas fa-comment-dots text-red-500 mr-2"></i> {t.formTitle}</h3>
+              <form id="fs-form" className="space-y-5">
+                <input type="text" name="name" placeholder={t.namePlaceholder} data-fs-field className="w-full px-5 py-3 rounded-xl bg-gray-900 text-white" required />
+                <input type="email" name="email" placeholder={t.emailPlaceholder} data-fs-field className="w-full px-5 py-3 rounded-xl bg-gray-900 text-white" required />
+                <textarea name="message" rows="3" placeholder={t.messagePlaceholder} data-fs-field className="w-full px-5 py-3 rounded-xl bg-gray-900 resize-none" required></textarea>
+                <div data-fs-success className="text-green-400 text-sm mt-2 hidden">{t.successMessage}</div>
+                <div data-fs-error className="text-red-400 text-sm mt-2 hidden">{t.errorMessage}</div>
+                <button type="submit" data-fs-submit-btn className="bg-red-600 hover:bg-red-700 py-3 rounded-xl w-full font-bold transition shadow-lg">
+                  <i className="fas fa-paper-plane mr-2"></i>{t.sendButton}
+                </button>
+              </form>
+            </div>
+            <div className="space-y-7">
+              <div className="glass-card p-8">
+                <h3 className="text-xl font-bold mb-5">{t.directChannels}</h3>
+                <div className="flex flex-wrap gap-3 justify-center md:justify-start">
+                  {contactItems.map((item,i)=> (
+                    <a key={i} href={item.url} target="_blank" rel="noopener noreferrer" className={`flex items-center gap-2 px-5 py-3 rounded-xl ${item.color} hover:opacity-80 transition-all border border-white/20 shadow-lg`}>
+                      <i className={`${item.icon} text-xl`}></i>
+                      <span className="text-sm font-medium">{item.name}</span>
+                    </a>
+                  ))}
+                </div>
+                <div className="mt-8 pt-5 border-t border-white/10 text-center">
+                  <div className="cv-buttons">
+                    <button onClick={handleViewCV} className="cv-btn cv-view"><i className="fas fa-eye"></i> {t.viewCV}</button>
+                    <button onClick={handleDownloadCV} className="cv-btn cv-download"><i className="fas fa-download"></i> {t.downloadCV}</button>
+                  </div>
+                </div>
+              </div>
+              <div className="bg-gray-950/40 p-5 rounded-2xl border border-red-800/30 text-center backdrop-blur-sm">
+                <i className="fas fa-map-pin text-red-500 text-xl"></i>
+                <p className="text-gray-300 text-lg font-medium mt-1">Barranquilla, Colombia</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  };
+
+  const Footer = () => {
+    const { language } = React.useContext(LanguageContext);
+    return (
+      <footer className="border-t border-red-900/40 py-8 bg-black/90">
+        <div className="max-w-7xl mx-auto text-center px-6">
+          <p className="text-gray-500 text-sm tracking-wide">{translations[language].footer}</p>
+        </div>
+      </footer>
+    );
+  };
+
+  const App = () => {
+    const [activeSection, setActiveSection] = useState("inicio");
+    const [language, setLanguage] = useState("es");
+    useEffect(() => {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) setActiveSection(entry.target.id);
+        });
+      }, { threshold: 0.4, rootMargin: "-70px 0px -20% 0px" });
+      const sections = language === 'es' ? ["inicio","sobre-mi","proyectos","servicios","contacto"] : ["home","about","projects","services","contact"];
+      sections.forEach(id => {
+        const el = document.getElementById(id);
+        if(el) observer.observe(el);
+      });
+      return () => observer.disconnect();
+    }, [language]);
+    return (
+      <LanguageContext.Provider value={{ language, setLanguage }}>
+        <div className="bg-black">
+          <Navigation activeSection={activeSection} setActiveSection={setActiveSection} language={language} setLanguage={setLanguage} />
+          <Hero />
+          <About />
+          <Projects />
+          <Services />
+          <Contact />
+          <Footer />
+        </div>
+      </LanguageContext.Provider>
+    );
+  };
+  
+  ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+</script>
+</body>
+</html>
