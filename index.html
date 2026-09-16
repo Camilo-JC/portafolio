@@ -163,7 +163,7 @@
         id:1, 
         titulo:"Cinema Ticket System", 
         descripcion:"Aplicación web para la compra de boletos de cine, donde los usuarios pueden explorar la cartelera, seleccionar funciones y gestionar sus tickets de forma rápida e intuitiva.", 
-        imagen:"./images/cine (1).png", 
+        imagen:"./images/cine.png", 
         url:"https://cine-psi-lilac.vercel.app/", 
         tags:["React 18 + Vite","Node.js + Express","PostgreSQL","JWT + Bcrypt"] 
       },
@@ -179,7 +179,7 @@
         id:3, 
         titulo:"Manjares del Campo", 
         descripcion:"Tienda online de productos tradicionales que facilita la exploración de catálogo y la realización de pedidos de manera sencilla y accesible.", 
-        imagen:"./images/e-commerce.png", 
+        imagen:"./images/ecommerce.png", 
         url:"https://manjares-del-campo.vercel.app/", 
         tags:["HTML5","CSS","JavaScript","PostgreSQL"] 
       },
@@ -187,7 +187,7 @@
         id:4, 
         titulo:"Sistema POS", 
         descripcion:"Sistema de punto de venta enfocado en el control de ventas a crédito (fiado), con roles de administrador y trabajador para una gestión organizada de clientes, productos y deudas.", 
-        imagen:"./images/toreto.png", 
+        imagen:"./images/toretto.png", 
         url:"https://toretos.vercel.app/dashboard", 
         tags:["React","Next.js","TypeScript","PostgreSQL"] 
       },
@@ -203,9 +203,17 @@
         id:6, 
         titulo:"HealthAnalytics IPS", 
         descripcion:"HealthAnalytics IPS es una plataforma web para el sector salud que permite cargar datos clínicos (CSV/Excel), procesarlos mediante un pipeline ETL inteligente, visualizar KPIs y tendencias en un dashboard interactivo, y predecir riesgo cardiovascular con modelos de Machine Learning.", 
-        imagen:"./images/Health.png", 
+        imagen:"./images/health.png", 
         url:"https://health-analytics-mlfw.vercel.app/", 
         tags:["Python","Machine Learning","ETL","React","Django","PostgreSQL","Scikit-learn","Pandas","FastAPI"] 
+      },
+      { 
+        id:7, 
+        titulo:"EcoEnergy", 
+        descripcion:"Simulador inteligente y Dashboard interactivo de eficiencia energética residencial. Procesa factores cotidianos y climáticos para predecir la demanda eléctrica de un hogar con un 89% de acierto. Integra un algoritmo matemático personalizado, un catálogo dinámico de 500 hogares entrenado con IA y una interfaz premium con efecto translúcido para visualización analítica de datos.", 
+        imagen:"./images/ecoenergy.png", 
+        url:"https://ecoenergy-git-main-cabdevx.vercel.app/", 
+        tags:["Python","Next.js","Django","Tailwind CSS","Machine Learning","Data Analytics","ETL"] 
       }
     ],
     en: [
@@ -213,7 +221,7 @@
         id:1, 
         titulo:"Cinema Ticket System", 
         descripcion:"Web application for buying movie tickets, where users can explore the movie schedule, select showtimes and manage their tickets quickly and intuitively.", 
-        imagen:"./images/cine (1).png", 
+        imagen:"./images/cine.png", 
         url:"https://cine-psi-lilac.vercel.app/", 
         tags:["React 18 + Vite","Node.js + Express","PostgreSQL","JWT + Bcrypt"] 
       },
@@ -229,7 +237,7 @@
         id:3, 
         titulo:"Manjares del Campo", 
         descripcion:"Online store of traditional products that facilitates catalog exploration and ordering in a simple and accessible way.", 
-        imagen:"./images/e-commerce.png", 
+        imagen:"./images/ecommerce.png", 
         url:"https://manjares-del-campo.vercel.app/", 
         tags:["HTML5","CSS","JavaScript","PostgreSQL"] 
       },
@@ -253,14 +261,22 @@
         id:6, 
         titulo:"HealthAnalytics IPS", 
         descripcion:"HealthAnalytics IPS is a web platform for the healthcare sector that allows loading clinical data (CSV/Excel), processing it through an intelligent ETL pipeline, visualizing KPIs and trends in an interactive dashboard, and predicting cardiovascular risk with Machine Learning models.", 
-        imagen:"./images/Health.png", 
+        imagen:"./images/health.png", 
         url:"https://health-analytics-mlfw.vercel.app/", 
         tags:["Python","Machine Learning","ETL","React","Django","PostgreSQL","Scikit-learn","Pandas","FastAPI"] 
+      },
+      { 
+        id:7, 
+        titulo:"EcoEnergy", 
+        descripcion:"Smart simulator and interactive residential energy efficiency dashboard. Processes daily and climatic factors to predict household electricity demand with 89% accuracy. Integrates a custom mathematical algorithm, a dynamic catalog of 500 AI-trained households, and a premium glassmorphism interface for frictionless analytical data visualization.", 
+        imagen:"./images/ecoenergy.png", 
+        url:"https://ecoenergy-git-main-cabdevx.vercel.app/", 
+        tags:["Python","Next.js","Django","Tailwind CSS","Machine Learning","Data Analytics","ETL"] 
       }
     ]
   };
 
-  // Habilidades técnicas (ACTUALIZADO CON KOTLIN Y ANDROID STUDIO)
+  // Habilidades técnicas (ACTUALIZADO)
   const coreSkills = [
     { name:"HTML5", icon:"fab fa-html5", color:"#E34F26" },
     { name:"CSS3", icon:"fab fa-css3-alt", color:"#1572B6" },
@@ -268,6 +284,7 @@
     { name:"JavaScript", icon:"fab fa-js", color:"#F7DF1E" },
     { name:"TypeScript", icon:"fab fa-js", color:"#3178C6" },
     { name:"React", icon:"fab fa-react", color:"#61DAFB" },
+    { name:"React Native", icon:"fab fa-react", color:"#61DAFB" },
     { name:"Next.js", icon:"fab fa-react", color:"#000000" },
     { name:"Node.js", icon:"fab fa-node-js", color:"#339933" },
     { name:"Express", icon:"fab fa-node-js", color:"#000000" },
@@ -280,38 +297,44 @@
     { name:"Java", icon:"fab fa-java", color:"#F89820" },
     { name:"Kotlin", icon:"fab fa-android", color:"#7F52FF" },
     { name:"Android Studio", icon:"fab fa-android", color:"#3DDC84" },
+    { name:"Jetpack", icon:"fab fa-android", color:"#3DDC84" },
     { name:"PHP", icon:"fab fa-php", color:"#777BB4" },
     { name:"Laravel", icon:"fab fa-laravel", color:"#FF2D20" },
     { name:"PostgreSQL", icon:"fas fa-database", color:"#4169E1" },
     { name:"MySQL", icon:"fas fa-database", color:"#4479A1" },
+    { name:"SQLite", icon:"fas fa-database", color:"#003B57" },
+    { name:"Firebase", icon:"fas fa-fire", color:"#FFCA28" },
+    { name:"Supabase", icon:"fas fa-database", color:"#3ECF8E" },
     { name:"Prisma", icon:"fas fa-database", color:"#2D3748" },
-    { name:"MySQL Workbench", icon:"fas fa-tools", color:"#E58C2E" },
+    { name:"Docker", icon:"fab fa-docker", color:"#2496ED" },
     { name:"Vercel", icon:"fas fa-cloud-upload-alt", color:"#FFFFFF" },
     { name:"GitHub", icon:"fab fa-github", color:"#ffffff" },
     { name:"VS Code", icon:"fas fa-code", color:"#007ACC" },
     { name:"JWT", icon:"fas fa-key", color:"#FF2D20" },
     { name:"Bcrypt", icon:"fas fa-lock", color:"#00A8E8" },
-    { name:"Brevo API", icon:"fas fa-envelope", color:"#0B996E" }
+    { name:"Brevo API", icon:"fas fa-envelope", color:"#0B996E" },
+    { name:"Power BI", icon:"fas fa-chart-bar", color:"#F2C811" },
+    { name:"Cloudinary", icon:"fas fa-cloud", color:"#3448C5" }
   ];
 
-  // URLs de las hojas de vida
+  // URLs de las hojas de vida ACTUALIZADAS
   const cvUrls = {
     es: {
-      view: "https://drive.google.com/file/d/16SWjfvKybZ9d8zkbDud1PlosfZjgpqUv/preview",
-      download: "https://drive.google.com/uc?export=download&id=16SWjfvKybZ9d8zkbDud1PlosfZjgpqUv"
+      view: "https://drive.google.com/file/d/1RWWyejyINr-R-JJJb-C4s996pKqEDuOH/preview",
+      download: "https://drive.google.com/uc?export=download&id=1RWWyejyINr-R-JJJb-C4s996pKqEDuOH"
     },
     en: {
-      view: "https://drive.google.com/file/d/1iDqWtMh4Xt_LMKTmy8v99mCAX_yD-tGB/preview",
-      download: "https://drive.google.com/uc?export=download&id=1iDqWtMh4Xt_LMKTmy8v99mCAX_yD-tGB"
+      view: "https://drive.google.com/file/d/1JOBddn_SK4FiJLIfdjUldQ3Q_x5e4ZDY/preview",
+      download: "https://drive.google.com/uc?export=download&id=1JOBddn_SK4FiJLIfdjUldQ3Q_x5e4ZDY"
     }
   };
 
-  // Textos bilingües (ACTUALIZADO)
+  // Textos bilingües
   const translations = {
     es: {
       nav: { home: "Inicio", about: "Sobre mí", projects: "Proyectos", services: "Servicios", contact: "Contacto" },
       hero: { badge: "✦ Junior Software Developer ✦", description: "Desarrollador junior con mentalidad de creador. Apasionado por el rendimiento, las animaciones fluidas y construir experiencias digitales que marcan diferencia. Desarrollo web y móvil con Kotlin.", contactBtn: "Contactar", projectsBtn: "Proyectos", roles: ["Junior Dev", "CabDevX", "Creador UI/UX", "FullStack en formación", "Mobile Developer (Kotlin)", "Innovador Digital"], tagline: "código con alma" },
-      about: { title: "Sobre mí", description1: "✨ Hola, soy <strong class='text-red-400'>Camilo Caballero</strong>, fundador de <strong class='text-red-500'>CabDevX</strong>. Construyo aplicaciones web y móviles donde la estética y la funcionalidad se fusionan. Uso <strong>React, Next.js, Node.js, Python, Kotlin y bases de datos SQL</strong> para crear soluciones modernas y escalables.", description2: "Mi flujo de trabajo incluye <strong class='text-red-300'>VS Code, Android Studio, GitHub</strong> y despliegues en <strong class='text-red-300'>Vercel</strong>, además de diseñar modelos en <strong class='text-red-300'>MySQL Workbench</strong> y <strong class='text-red-300'>Prisma</strong>. También implemento soluciones con <strong class='text-red-300'>Machine Learning</strong> y <strong class='text-red-300'>ETL</strong>. Siempre aprendiendo y aportando valor a equipos ágiles.", qualities: ["Metodologías ágiles", "Clean Code", "UI/UX centrado", "Rendimiento Web", "Git Flow", "Aprendizaje continuo", "Desarrollo Multiplataforma"], techTitle: "Tech Stack & Tools", databases: "Bases de datos: PostgreSQL, MySQL, Firebase", versionControl: "Control de versiones" },
+      about: { title: "Sobre mí", description1: "✨ Hola, soy <strong class='text-red-400'>Camilo Caballero</strong>, fundador de <strong class='text-red-500'>CabDevX</strong>. Construyo aplicaciones web y móviles donde la estética y la funcionalidad se fusionan. Uso <strong>React, Next.js, Node.js, Python, Kotlin y bases de datos SQL</strong> para crear soluciones modernas y escalables.", description2: "Mi flujo de trabajo incluye <strong class='text-red-300'>VS Code, Android Studio, GitHub</strong> y despliegues en <strong class='text-red-300'>Vercel</strong>, además de diseñar modelos en <strong class='text-red-300'>MySQL Workbench</strong> y <strong class='text-red-300'>Prisma</strong>. También implemento soluciones con <strong class='text-red-300'>Machine Learning</strong> y <strong class='text-red-300'>ETL</strong>. Siempre aprendiendo y aportando valor a equipos ágiles.", qualities: ["Metodologías ágiles", "Clean Code", "UI/UX centrado", "Rendimiento Web", "Git Flow", "Aprendizaje continuo", "Desarrollo Multiplataforma"], techTitle: "Tech Stack & Tools", databases: "Bases de datos: PostgreSQL, MySQL, SQLite, Firebase", versionControl: "Control de versiones" },
       projects: { title: "Proyectos destacados", subtitle: "Innovación y código limpio en cada línea", viewBtn: "Ver proyecto" },
       services: { title: "Servicios", subtitle: "Soluciones a medida para negocios digitales", items: [
         { icon:"fas fa-laptop-code", title:"Frontend avanzado", desc:"React, Next.js, Tailwind, animaciones, arquitectura componentizada, responsive design." },
@@ -327,7 +350,7 @@
     en: {
       nav: { home: "Home", about: "About", projects: "Projects", services: "Services", contact: "Contact" },
       hero: { badge: "✦ Junior Software Developer ✦", description: "Junior developer with a creator mindset. Passionate about performance, smooth animations and building digital experiences that make a difference. Web and mobile development with Kotlin.", contactBtn: "Contact me", projectsBtn: "Projects", roles: ["Junior Dev", "CabDevX", "UI/UX Creator", "FullStack in training", "Mobile Developer (Kotlin)", "Digital Innovator"], tagline: "code with soul" },
-      about: { title: "About me", description1: "✨ Hi, I'm <strong class='text-red-400'>Camilo Caballero</strong>, founder of <strong class='text-red-500'>CabDevX</strong>. I build web and mobile applications where aesthetics and functionality merge. I use <strong>React, Next.js, Node.js, Python, Kotlin and SQL databases</strong> to create modern and scalable solutions.", description2: "My workflow includes <strong class='text-red-300'>VS Code, Android Studio, GitHub</strong> and deployments on <strong class='text-red-300'>Vercel</strong>, as well as designing models in <strong class='text-red-300'>MySQL Workbench</strong> and <strong class='text-red-300'>Prisma</strong>. I also implement <strong class='text-red-300'>Machine Learning</strong> and <strong class='text-red-300'>ETL</strong> solutions. Always learning and adding value to agile teams.", qualities: ["Agile methodologies", "Clean Code", "UI/UX focused", "Web Performance", "Git Flow", "Continuous learning", "Cross-platform Development"], techTitle: "Tech Stack & Tools", databases: "Databases: PostgreSQL, MySQL, Firebase", versionControl: "Version control" },
+      about: { title: "About me", description1: "✨ Hi, I'm <strong class='text-red-400'>Camilo Caballero</strong>, founder of <strong class='text-red-500'>CabDevX</strong>. I build web and mobile applications where aesthetics and functionality merge. I use <strong>React, Next.js, Node.js, Python, Kotlin and SQL databases</strong> to create modern and scalable solutions.", description2: "My workflow includes <strong class='text-red-300'>VS Code, Android Studio, GitHub</strong> and deployments on <strong class='text-red-300'>Vercel</strong>, as well as designing models in <strong class='text-red-300'>MySQL Workbench</strong> and <strong class='text-red-300'>Prisma</strong>. I also implement <strong class='text-red-300'>Machine Learning</strong> and <strong class='text-red-300'>ETL</strong> solutions. Always learning and adding value to agile teams.", qualities: ["Agile methodologies", "Clean Code", "UI/UX focused", "Web Performance", "Git Flow", "Continuous learning", "Cross-platform Development"], techTitle: "Tech Stack & Tools", databases: "Databases: PostgreSQL, MySQL, SQLite, Firebase", versionControl: "Version control" },
       projects: { title: "Featured projects", subtitle: "Innovation and clean code in every line", viewBtn: "View project" },
       services: { title: "Services", subtitle: "Tailored solutions for digital businesses", items: [
         { icon:"fas fa-laptop-code", title:"Advanced Frontend", desc:"React, Next.js, Tailwind, animations, component-based architecture, responsive design." },
@@ -447,7 +470,15 @@
             {projects.map(proj => (
               <div key={proj.id} className="glass-card overflow-hidden group flex flex-col h-full rounded-2xl transition-all duration-500">
                 <div className="h-48 overflow-hidden relative bg-gray-900">
-                  <img src={proj.imagen} alt={proj.titulo} className="project-img" loading="lazy" />
+                  <img 
+                    src={proj.imagen} 
+                    alt={proj.titulo} 
+                    className="project-img" 
+                    loading="lazy"
+                    onError={(e) => {
+                      e.target.src = 'https://via.placeholder.com/600x400/1a1a2e/ef4444?text=' + encodeURIComponent(proj.titulo);
+                    }}
+                  />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition"></div>
                 </div>
                 <div className="p-5 flex-1 flex flex-col">
